@@ -1,14 +1,24 @@
 .listContent {
   margin: 0 250px 0 250px;
   padding: 20px;
-  min-height: calc(100vh - 200px); 
+  min-height: 100vh; 
 }
 
 .completed {
   margin-top: 50px;
 }
 
+.addTask {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
 /* Resets */
+
+body {
+  background-color: #DEE2E6;
+  color: #212529;
+}
 
 html {
   box-sizing: border-box;
