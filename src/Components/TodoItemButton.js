@@ -3,7 +3,7 @@ import '../App.css';
 import { Button } from "./Button";
 
 
-export default function TaskItemButtons(props) {
+export default function TodoItemButton(props) {
   return (
     <div>
       {props.task.editable ? 
