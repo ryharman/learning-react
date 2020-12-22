@@ -1,62 +1,37 @@
-import React, { useReducer } from "react";
+import React, { useContext } from "react";
 import '../App.css';
-import { todoReducer } from "../todoReducer";
 import TodoItem from "./TodoItem";
-import { Divider, Typography, TextField, Card, CardContent, } from "@material-ui/core";
+import { Divider, Typography, Card, CardContent, } from "@material-ui/core";
+import AddNewItem from "./AddNewItem";
+import { TodoContext } from "../GlobalState";
 
-function initialValues() {
-  if(JSON.parse(localStorage.getItem('todo')) === null) {
-    return { 
-      1: { 
-        id: 1, 
-        done: false, 
-        label: "Placeholder task", 
-        content:"Placeholder content", 
-        editable: false 
-      } 
-    };
-  } else {
-    return JSON.parse(localStorage.getItem('todo'));
-  }
-}
-
+// Filters finished tasks from local storage.
 function getFinishedTasks(taskObj) {
   return Object.values(taskObj).filter(task => task.done === true);
 }
 
+// Filters the unfinished tasks from local storage
 function getUnfinishedTasks(taskObj) {
   return Object.values(taskObj).filter(task => task.done === false);
 }
 
-const initialState = initialValues();
 
-// Reduce function used to control
-// state imported from todoReducer.js
 export default function TodoForm() {
-  const [todoState, dispatch] = useReducer(todoReducer, initialState);
+  const [state, dispatch] = useContext(TodoContext);
 
   return (
     <div className="listContent">
       <div className="addTask">
-        <TextField 
-        name="task"
-        label="Add new task"
-        id="newTaskId"
-        onKeyPress={e => {
-          if(e.key === 'Enter') {
-            dispatch({ type: "ADD", payload: document.getElementById("newTaskId").value})
-            // Resets the input fields value
-            document.getElementById("newTaskId").value = "";
-          }
-        }}/>
+        <AddNewItem />
       </div>
       
+      {/* Unfinished tasks section */}
       <Card>
         <CardContent>
           <Typography variant="h4"> Tasks </Typography>
           <Divider></Divider>
           <ul>
-            {getUnfinishedTasks(todoState).map((task) => (
+            {getUnfinishedTasks(state).map((task) => (
               <TodoItem 
               task={task} 
               onChange={() =>
@@ -71,12 +46,20 @@ export default function TodoForm() {
         </CardContent>
       </Card>
 
+      {/* Finished tasks section */}
       <Card className="completed">
         <CardContent>
           <Typography variant="h4"> Completed Tasks </Typography>
           <Divider></Divider>
-          <ul>
-            {getFinishedTasks(todoState).map((task) => (
+          { getFinishedTasks(state).length === 0 ? 
+            // If FALSE (empty) display
+            <div className="finishedTasksEmpty">
+              <p>No finished tasks yet...</p>
+            </div>
+            : 
+            // If TRUE display
+            <ul>
+            {getFinishedTasks(state).map((task) => (
               <TodoItem 
               task={task} 
               onChange={() =>
@@ -88,6 +71,7 @@ export default function TodoForm() {
               />
             ))}
           </ul>
+          }
         </CardContent>
       </Card>
       
