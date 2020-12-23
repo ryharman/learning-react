@@ -5,14 +5,17 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { TodoContext } from "../GlobalState";
+import { TodoContext } from "../GlobalTodoState";
 
-export default function FormDialog() {
+export default function AddNewItem() {
   // Gather the global state
   const [state, dispatch] = useContext(TodoContext);
 
-  // State for the text input
+  // State for the label input
   const [newTask, setNewTask] = useState("");
+
+  // State for the content input
+  const [newTaskContent, setNewTaskContent] = useState("");
 
   // State for showing the dialog
   const [open, setOpen] = React.useState(false);
@@ -26,16 +29,21 @@ export default function FormDialog() {
     toggleOpen();
 
     // Adds the newest task to the global state
-    dispatch({ type: "ADD", payload: newTask});
+    dispatch({ type: "ADD", payload: {task: newTask, content: newTaskContent} });
 
     // Resets newTask state
     setNewTask("");
   }
 
   // Controls the state of the newTask value
-  const handleNewTask = event => {
+  const handleNewTaskLabel = event => {
     console.log("New task ", event.target.value);
     setNewTask(event.target.value);
+  }
+
+  const handleNewTaskContent = event => {
+    console.log("New task content ", event.target.value);
+    setNewTaskContent(event.target.value);
   }
 
   return (
@@ -50,10 +58,20 @@ export default function FormDialog() {
             autoFocus
             margin="dense"
             id="name"
-            label="Enter your task"
+            label="Task Label"
             type="text"
             fullWidth
-            onChange={handleNewTask}
+            onChange={handleNewTaskLabel}
+          />
+          <TextField
+            margin="dense"
+            id="name"
+            label="Task Content"
+            type="text"
+            fullWidth
+            multiline
+            rowsMax={2}
+            onChange={handleNewTaskContent}
           />
         </DialogContent>
         <DialogActions>

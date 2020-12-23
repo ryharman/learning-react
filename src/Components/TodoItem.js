@@ -13,7 +13,6 @@ export default function TodoItem(props) {
     role={undefined} 
     dense 
     button>
-
       <ListItemIcon>
         <Checkbox
           edge="start"
@@ -23,19 +22,19 @@ export default function TodoItem(props) {
           onChange={() => props.onChange()}
         />
       </ListItemIcon>
-
       <ListItemText 
       id={props.task.id} 
       primary={props.task.label} 
-      onClick={() => props.onChange()}/>
-
+      onClick={() => props.onChange()}
+      />
       <ListItemSecondaryAction>
         <Button  
           color="primary"
           onClick={() => props.onDelete()}
-        >Delete</Button>
+        >
+          Delete
+        </Button>
       </ListItemSecondaryAction>
-
     </ListItem>
   )
 }

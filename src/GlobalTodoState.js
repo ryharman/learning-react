@@ -9,19 +9,7 @@ export const TodoContext = createContext();
 
 // Gets initialstate from localstorage
 const initialState = () => {
-  if(JSON.parse(localStorage.getItem('todo')) === null) {
-    return { 
-      1: { 
-        id: 1, 
-        done: false, 
-        label: "Placeholder task", 
-        content:"Placeholder content", 
-        editable: false 
-      } 
-    };
-  } else {
-    return JSON.parse(localStorage.getItem('todo'));
-  }
+  return JSON.parse(localStorage.getItem('todo'));
 };
 
 // Used to enclose child components to provide state

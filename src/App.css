@@ -1,7 +1,6 @@
 .listContent {
   margin: 0 250px 0 250px;
   padding: 20px;
-  min-height: 100vh; 
 }
 
 .completed {
@@ -13,8 +12,12 @@
   margin-bottom: 20px;
 }
 
-.finishedTasksEmpty {
+.tasksTopMargin {
   margin-top: 16px;
+}
+
+.headerBotMargin {
+  margin-bottom: 16px;
 }
 
 .popup {

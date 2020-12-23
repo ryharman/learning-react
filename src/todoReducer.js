@@ -57,7 +57,8 @@ export function todoReducer(state, action) {
         newId = Number(objectKeys[objectKeys.length-1]) + 1;
       }
 
-      const newLabel = action.payload;
+      const newLabel = action.payload.task;
+      const newContent = action.payload.content;
 
       // Update the stored state
       newState = Object.assign(
@@ -67,7 +68,7 @@ export function todoReducer(state, action) {
             id: newId, 
             done: false, 
             label: newLabel, 
-            content:"Placeholder content", 
+            content: newContent, 
             editable: false 
           }
         }
