@@ -10,9 +10,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 export default function TodoItem(props) {
   return (
     <ListItem key={props.task.id} 
-    role={undefined} 
-    dense 
-    button>
+    role={undefined}
+    button
+    >
       <ListItemIcon>
         <Checkbox
           edge="start"
@@ -25,7 +25,12 @@ export default function TodoItem(props) {
       <ListItemText 
       id={props.task.id} 
       primary={props.task.label} 
-      onClick={() => props.onChange()}
+      secondary={props.task.content}
+      className="listWidth"
+      />
+      <ListItemText 
+      id={props.task.id}
+      secondary={"Due date: " + props.task.endDate}
       />
       <ListItemSecondaryAction>
         <Button  

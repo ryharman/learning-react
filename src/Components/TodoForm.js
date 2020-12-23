@@ -1,6 +1,6 @@
 import React from "react";
 import '../App.css';
-import AddNewItem from "./AddNewItem";
+import AddNewTask from "./AddNewTask";
 import TaskSection from "./TaskSection";
 
 
@@ -9,10 +9,9 @@ export default function TodoForm() {
   return (
     <div className="listContent">
       <div className="addTask">
-        <AddNewItem />
+        <AddNewTask />
       </div>
-      <TaskSection isComplete="false" />
-      <TaskSection isComplete="true" />
+      <TaskSection />
     </div>
   );
 }

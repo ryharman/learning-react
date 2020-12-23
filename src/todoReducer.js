@@ -59,6 +59,7 @@ export function todoReducer(state, action) {
 
       const newLabel = action.payload.task;
       const newContent = action.payload.content;
+      const newDate = action.payload.date;
 
       // Update the stored state
       newState = Object.assign(
@@ -68,7 +69,8 @@ export function todoReducer(state, action) {
             id: newId, 
             done: false, 
             label: newLabel, 
-            content: newContent, 
+            content: newContent,
+            endDate: newDate, 
             editable: false 
           }
         }

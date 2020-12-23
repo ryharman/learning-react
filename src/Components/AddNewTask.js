@@ -7,12 +7,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { TodoContext } from "../GlobalTodoState";
 
-export default function AddNewItem() {
+export default function AddNewTask() {
   // Gather the global state
   const [state, dispatch] = useContext(TodoContext);
 
   // State for the label input
   const [newTask, setNewTask] = useState("");
+
+  // State for the date input
+  const [newDate, setNewDate] = useState(new Date());
 
   // State for the content input
   const [newTaskContent, setNewTaskContent] = useState("");
@@ -27,23 +30,28 @@ export default function AddNewItem() {
   // Closes dialog and adds new task to state
   const handleConfirm = () => {
     toggleOpen();
-
     // Adds the newest task to the global state
-    dispatch({ type: "ADD", payload: {task: newTask, content: newTaskContent} });
-
+    dispatch({ type: "ADD", payload: {task: newTask, content: newTaskContent, date: newDate} });
     // Resets newTask state
     setNewTask("");
   }
 
   // Controls the state of the newTask value
   const handleNewTaskLabel = event => {
-    console.log("New task ", event.target.value);
+    // console.log("New task ", event.target.value);
     setNewTask(event.target.value);
   }
 
+  // Controls the state of the task content
   const handleNewTaskContent = event => {
-    console.log("New task content ", event.target.value);
+    // console.log("New task content ", event.target.value);
     setNewTaskContent(event.target.value);
+  }
+
+  // Controls the state of the due date
+  const handleNewDate = event => {
+    // console.log("New date ", event.target.value);
+    setNewDate(new Date(event.target.value).toLocaleDateString());
   }
 
   return (
@@ -62,6 +70,9 @@ export default function AddNewItem() {
             type="text"
             fullWidth
             onChange={handleNewTaskLabel}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
           <TextField
             margin="dense"
@@ -72,6 +83,21 @@ export default function AddNewItem() {
             multiline
             rowsMax={2}
             onChange={handleNewTaskContent}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <TextField
+            margin="dense"
+            fullWidth
+            id="date"
+            label="Due date"
+            type="date"
+            defaultValue=""
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={handleNewDate}
           />
         </DialogContent>
         <DialogActions>

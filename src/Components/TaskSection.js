@@ -20,17 +20,9 @@ function getUnfinishedTasks(taskObj) {
   } return 0
 }
 
-export default function TaskSection(props) {
+export default function TaskSection() {
   const [state, dispatch] = useContext(TodoContext);
-  
-  // Reusable function for complete and incomplete tasks
-  const isComplete = () => {
-    if(props.isComplete === "true") {
-      return getFinishedTasks(state);
-    } else {
-      return getUnfinishedTasks(state);
-    }
-  }
+
 
   return (
     <div className="headerBotMargin">
@@ -38,21 +30,19 @@ export default function TaskSection(props) {
         <CardContent>
           <div className="headerBotMargin">
             <Typography variant="h5" className="headerBotMargin"> 
-              {props.isComplete === "true" ? <p>Completed Tasks</p> 
-              : 
-              <p>Tasks</p>} 
+              <p>Tasks</p> 
             </Typography>
           </div>
           <Divider></Divider>
-          { isComplete().length === 0 || isComplete === 0 ? 
+          { getUnfinishedTasks(state).length === 0 || getUnfinishedTasks(state) === 0 ? 
             // If FALSE (empty) display
             <div className="tasksTopMargin">
-              {props.isComplete === "true" ? <p>No completed tasks yet...</p> : <p>No tasks yet...</p>}
+              <p>No tasks yet...</p>
             </div>
             :
             // If TRUE display
             <ul className="tasksTopMargin">
-            {isComplete().map((task) => (
+            {getUnfinishedTasks(state).map((task) => (
               <TodoItem 
               task={task} 
               onChange={() =>
@@ -63,6 +53,27 @@ export default function TaskSection(props) {
               }
               />
             ))}
+          </ul>
+          }
+          { getFinishedTasks(state).length === 0 || getFinishedTasks(state) === 0 ? 
+            null
+            :
+            // If TRUE display
+            <ul>
+              <div className="divMargin">
+                <Divider></Divider>
+              </div>
+              {getFinishedTasks(state).map((task) => (
+                <TodoItem 
+                task={task} 
+                onChange={() =>
+                  dispatch({ type: "TOGGLE", payload: { taskId: task.id } })
+                }
+                onDelete={() =>
+                  dispatch({ type: "DELETE", payload: { taskId: task.id } })
+                }
+                />
+              ))}
           </ul>
           }
         </CardContent>

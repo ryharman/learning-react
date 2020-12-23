@@ -24,6 +24,14 @@
   min-width: 50vw;
 }
 
+.listWidth {
+  width: 70%;
+}
+
+.divMargin {
+  margin: 16px 0 16px 0;
+}
+
 /* Resets */
 
 body, h1, h2, h3, h4, h5, h6, p, ol, ul {
